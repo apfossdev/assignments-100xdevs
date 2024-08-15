@@ -1,0 +1,198 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+}
+
+header{
+    background-color: #0e0e0e;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15vw;
+    padding-right: 15vw;
+}
+
+.left-header{
+    display: flex;
+}
+
+.right-header{
+    display: flex;
+    align-items: center;
+}
+
+.logo-with-text{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    
+}
+
+.logo-text{
+    padding-left: 9px;
+    padding-right: 9px;
+    font-weight: 700;
+}
+
+.navbar-routes{
+    padding: 10px;
+    color: #8F9786;
+
+}
+
+.navbar-routes:hover, .logo-text:hover{
+    cursor: pointer;
+}
+
+
+.input-search-docs{
+    display: flex;
+    align-items: center;
+}
+
+input[type=text]{
+    background-color: #0e0e0e;
+    color: #8F9786;    
+    border: 0;
+}
+
+.magnifying-glass{
+    background-color: #0e0e0e;
+    padding: 8px;
+
+}
+
+input[type=button]{
+    background-color: #0069B9;
+    color: white;
+    border: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+a:link{
+  color: #0069B9;
+}
+
+a:visited {
+  color: #0069B9;
+}
+
+.section-1{
+    display: flex;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    background-color: #0e0e0e;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 100px;
+}
+
+.section-1-left-part{
+    display: flex;
+    flex-direction: column;
+}
+.banner{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e0e0e;
+    color: #8F9786;
+    font-size: 14px;
+    height: 10vh;
+    gap: 2px;
+}
+
+.part-header-text{
+    color:#8F9786;
+}
+
+
+.big-text-1{
+    color: white;
+    font-size: 50px;
+    font-weight: 515;
+}
+
+.big-text-2{
+    color:white;
+    font-size: 50px;
+    font-weight: 515;
+}
+
+.download-buttons-for-linux{
+    display: flex;
+}
+
+button{
+    background-color: #0069B9;
+    color: white;
+    border: 0;
+    width: 140px;
+    height: 70px;
+}
+
+small{
+    font-size: 13px;
+}
+
+.other-versions-info{
+    color:#8F9786;
+    font-size: 14px;
+
+}
+
+.license-statement{
+    color:#8F9786;
+    font-size: 12px;
+    
+}
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
