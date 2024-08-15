@@ -1,0 +1,15 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 0 auto;
+    width: 1200px;
+    gap: 10px;
+}
+
+.left{
+    background-color: red;
+}
+
+.right{
+    background-color: blue;
+}

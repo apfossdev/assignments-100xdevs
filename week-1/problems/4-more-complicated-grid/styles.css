@@ -1,0 +1,32 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 0 auto;
+    width: 1200px;
+    gap: 10px;
+}
+
+
+.left{
+    background-color: red; 
+}
+
+.left-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-section{
+    background-color: red;
+    display: grid;
+    grid-template: repeat(3,1fr) / repeat(4, 1fr);
+    
+}
+
+.right{
+    background-color: blue;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+}
