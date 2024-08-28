@@ -6,7 +6,9 @@
 */
 
 function findLargestElement(numbers) {
-    
+  numbers.sort((a,b) => a-b);
+  numbers.reverse();
+  return numbers[0];
 }
 
 module.exports = findLargestElement;
