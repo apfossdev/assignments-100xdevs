@@ -19,7 +19,7 @@
 class Calculator {
 
   constructor(){
-    let result;
+    this.result; //even let result; works here don't know why 
     this.clear();
   }
 

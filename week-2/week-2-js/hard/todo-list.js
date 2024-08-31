@@ -12,21 +12,23 @@
 
 class Todo {
   constructor(){
-    let todoList = [];
+    this.todoList = [];
   }
   add(todo){
     this.todoList.push(todo);
   }
   remove(indexOfTodo){
-    delete this.todoList[indexOfTodo];
+    this.todoList.splice(indexOfTodo,1);
   }
-  update(index, updatedTodo){
+  update(indexOfTodo, updatedTodo){
+    if(indexOfTodo < 0 || indexOfTodo >= this.todoList.length) return;
     this.todoList[indexOfTodo] = updatedTodo;
   }
   getAll(){
     return this.todoList
   }
   get(indexOfTodo){
+    if (indexOfTodo < 0 || indexOfTodo >= this.todoList.length) return null;
     return this.todoList[indexOfTodo];
   }
   clear(){

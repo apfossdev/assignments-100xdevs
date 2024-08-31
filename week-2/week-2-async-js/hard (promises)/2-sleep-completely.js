@@ -5,6 +5,13 @@
  */
 
 function sleep(milliseconds) {
+    return new Promise((resolve) => {
+        var dt = new Date();
+        while((new Date())- dt <= milliseconds){
+            //eat 5 star, do nothing
+        }
+        resolve();
+    });
 }
 
 module.exports = sleep;
