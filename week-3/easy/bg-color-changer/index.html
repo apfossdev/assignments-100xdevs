@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Color Changer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="main-div">
+        <div id="color-panel">
+            <button id="red" onclick="change_BG_color('red')">Red</button>
+            <button id="green" onclick="change_BG_color('green')">Green</button>
+            <button id="blue" onclick="change_BG_color('blue')">Blue</button>
+            <button id="default" onclick="change_BG_color('transparent')">Default</button>
+            
+        </div>
+        <div id="custom-color-div">
+            <input id="custom-color-input" type="text" placeholder="Enter the color code here...">
+            <button id="custom" onclick="setup_custom_BG_color()">Custom</button>
+        </div>
+    </div>
+</body>
+</html>
