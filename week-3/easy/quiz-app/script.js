@@ -34,75 +34,71 @@ const quizData = [
   // you can add more quiz here
 ];
 
-const numOfQuestions = quizData.length;
-let questionNum = 0;
+let questionCounter = 0;
+const questionCount = quizData.length;
+let quizScore = 0;
+const questionNode = document.getElementById('quiz-form');
 
-let questionsAnsweredCorrectly = 0;
 
+//use helper functions for more clarity and future easy debugging of code
+//this might look longer for few functions but increases readability so much moreee
 
-function printQuestionNodes(){
+function createQuestion(){
+  const question = document.createElement("h3");
+  question.innerHTML = quizData[questionCounter]["question"];
+  return question; //this is to return the question as an object for us to use it later
 
-  const questionNode = document.createElement("div");
-  const question = document.createElement("div");
-  const options = document.createElement("div");
-  const submitBtn = document.createElement("button");
-
-  question.innerHTML = quizData[questionNum]["question"];
-
-  const option_a = document.createElement("input");
-  option_a.setAttribute("type", "radio");
-  option_a.setAttribute("value", quizData[questionNum]["a"]);
-  const option_a_label = document.createElement("label");
-  option_a_label.setAttribute("for", quizData[questionNum]["a"]);
-  option_a_label.innerHTML = quizData[questionNum]["a"];
-
-  const option_b = document.createElement("input");
-  option_b.setAttribute("type", "radio");
-  option_b.setAttribute("value", quizData[questionNum]["b"]);
-  const option_b_label = document.createElement("label");
-  option_b_label.setAttribute("for", quizData[questionNum]["b"]);
-  option_b_label.innerHTML = quizData[questionNum]["b"];
-
-  const option_c = document.createElement("input");
-  option_c.setAttribute("type", "radio");
-  option_c.setAttribute("value", quizData[questionNum]["c"]);
-  const option_c_label = document.createElement("label");
-  option_c_label.setAttribute("for", quizData[questionNum]["c"]);
-  option_c_label.innerHTML = quizData[questionNum]["c"];
-
-  const option_d = document.createElement("input");
-  option_d.setAttribute("type", "radio");
-  option_d.setAttribute("value", quizData[questionNum]["d"]);
-  const option_d_label = document.createElement("label");
-  option_d_label.setAttribute("for", quizData[questionNum]["d"]);
-  option_d_label.innerHTML = quizData[questionNum]["d"];
-
-  submitBtn.innerHTML = "Submit";
-  if(questionNum < numOfQuestions) submitBtn.setAttribute("onclick", "printQuestionNodes()");
-  else submitBtn.setAttribute("onclick","showResult()"); 
-  
-  const parentNode = document.getElementById("main");
-  const quizSection = document.getElementById("quiz-section");
-
-  options.appendChild(option_a);
-  options.appendChild(option_a_label);
-  options.appendChild(option_b);
-  options.appendChild(option_b_label);
-  options.appendChild(option_c);
-  options.appendChild(option_c_label);
-  options.appendChild(option_d);
-  options.appendChild(option_d_label);
-
-  questionNode.appendChild(question);
-  questionNode.appendChild(options);
-  questionNode.appendChild(submitBtn);
-
-  quizSection.appendChild(questionNode);
-  parentNode.appendChild(quizSection);
-
-  questionNum++;
 }
 
-function showResult(){
-  
+function createOptions(){
+  const optionsDiv = document.createElement("div");
+  optionsDiv.setAttribute("id", `${questionCounter}-options`);
+
+  ["a", "b", "c", "d"].forEach((option) => {
+    const radioButton = document.createElement("input");
+    radioButton.setAttribute("type", "radio");
+    radioButton.setAttribute("id", `${questionCounter}-${option}`);
+    radioButton.setAttribute("value", `${option}`);
+    radioButton.setAttribute("name", `${questionCounter}`);
+
+    const radioButtonLabel = document.createElement("label");
+    radioButtonLabel.setAttribute("for", `${questionCounter}-${option}`);
+    radioButtonLabel.innerHTML = quizData[questionCounter][option];
+    optionsDiv.appendChild(radioButton);
+    optionsDiv.appendChild(radioButtonLabel);
+  });
+  return optionsDiv;
 }
+
+function createSubmitButton(){
+  const submitButton = document.createElement("button");
+  submitButton.setAttribute("id", `${questionCounter}-submitButton`);
+  submitButton.innerHTML = "Submit";
+  submitButton.addEventListener('click',submitFunctionality);
+  return submitButton;
+}
+
+function displayQuestion(){
+  questionNode.innerHTML = "";
+  questionNode.appendChild(createQuestion());
+  questionNode.appendChild(createOptions());
+  questionNode.appendChild(createSubmitButton());
+}
+
+
+function submitFunctionality(){
+  const checkedRadio = document.querySelector(`input[name="${questionCounter}"]:checked`);
+    if(checkedRadio && checkedRadio.value === quizData[questionCounter]["correct"]) {
+      quizScore++;
+    }
+    questionCounter++;
+
+    if(questionCounter < questionCount) {
+      displayQuestion();
+    }
+    else{
+      questionNode.innerHTML = `<h3>Your score is ${quizScore} out of ${questionCount}</h3>`;
+    }
+  }
+
+displayQuestion();
