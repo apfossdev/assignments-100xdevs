@@ -19,7 +19,7 @@ const PetAdoptionForm = ({ setEntries, setIsSubmitted }) => {
   const formSchema = z.object({
     petName: z
       .string()
-      .min(3, { message: "Pet name must be at least 3 characters long" }),
+      .min(3, { message: "Pet name must be at least 3 characters long" }), //these are the required error messages to be displayed when the particular field is not satisfied, these messages are used for both real-time and during form submission
     petType: z.string().min(1, { message: "Please select a pet type" }),
     breed: z
       .string()
@@ -65,13 +65,15 @@ const PetAdoptionForm = ({ setEntries, setIsSubmitted }) => {
     try {
       formSchema.pick({ [name]: true }).parse({ [name]: value });
       setErrors((prevErrors) => ({
-        ...prevErrors,
+        ...prevErrors, 
         [name]: null, // Clear the error for the specific field
+        //as the errors don't exist above we take the previous Errors and update it with the particular one picked by PICK in zod and set it to null
       }));
     } catch (err) {
       setErrors((prevErrors) => ({
         ...prevErrors,
         [name]: err.errors[0].message, // Set the error message for the field
+        // as the errors exist here, we set the errors State variable's key which is the input field to the error message we want to bw displayed
       }));
     }   
   };
@@ -112,11 +114,12 @@ const PetAdoptionForm = ({ setEntries, setIsSubmitted }) => {
 
     catch (err) {
       // Capture validation errors and display them
-      const fieldErrors = err.errors.reduce((acc, curr) => {
-        acc[curr.path[0]] = curr.message;
-        return acc;
-      }, {});
-      setErrors(fieldErrors);
+      const fieldErrors = {}; // Initialize an empty object to hold error messages
+      err.errors.forEach((error) => {
+        //here err.errors is an array having all the validation errors for the form fields //we traverse through each of the error object and take the message and set it to the key accordingly like petType in the freshly created fieldErrors object
+        fieldErrors[error.path[0]] = error.message; // Set the error message for the corresponding field //path here is the key like email, petName and etc.
+      });
+      setErrors(fieldErrors); //update the state with the error messages
     }
 
 
