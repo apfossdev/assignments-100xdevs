@@ -1,15 +1,13 @@
 const express = require("express");
 const { Router } = require("express");
 const router = Router();
-const authMiddleware = require("../middleware/auth");
-const { User, Course } = require("../database/db");
+const { User } = require("../database/db");
 
 const { z } = require("zod");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const secret = process.env.JWT_SECRET;
-
 
 const app = express();
 app.use(express.json());
@@ -98,56 +96,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/courses", authMiddleware, async (req, res) => {
-  // logic to list all courses
-  try{
-    // Fetch all courses but only include the following properties except _id(default in all objects)
-    const courses = await Course.find().select('courseId title description price imageLink published -_id');
-    res.json(courses);
-  }catch(error){
-    console.error("Error :", error);
-    res
-      .status(500)
-      .json({ message: "Error fetching", error: error.message });
-      }
-});
+//logout is done on the client side itself
 
-router.post("/courses/:courseId", authMiddleware, async (req, res) => {
-  // logic to purchase a course
-  const courseId = req.params.courseId;
-  const userId = req.userId;
 
-  const purchaseCourse = await User.findOneAndUpdate(
-    { _id: userId },
-    { $push: { purchasedCourses: courseId } },//to push courseId into this purchased courses array here},
-    { new: true } // Return the updated document
-  );
-
-  if(!purchaseCourse){
-    return res.status(404).json({ message: "User not found" });
-  }
-  res.status(200).json({ message: "Course purchased successfully"});
-});
-
-router.get("/purchasedCourses", authMiddleware, async (req, res) => {
-  // logic to view purchased courses
-  const userId = req.userId;
-  const user = await User.findOne({
-    _id: userId,
-  });
-  const purchasedCoursesIds = user.purchasedCourses;
-  const purchasedCoursesData = [];
-
-  for(let i = 0; i < purchasedCoursesIds.length; i++){
-    const courseId = purchasedCoursesIds[i];
-    const courseData = await Course.findOne({
-      courseId: courseId,
-    }).select("courseId title description price imageLink published -_id");
-    purchasedCoursesData.push(courseData);
-  }
-  res.json({
-    purchasedCourses: purchasedCoursesData
-  })
-});
 
 module.exports = router;
