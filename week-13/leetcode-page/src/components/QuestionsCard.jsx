@@ -5,6 +5,26 @@ import { useState } from "react";
 import { FilterCard } from "./FilterCard";
 
 export const QuestionsCard = () => {
+  const [openFilterCard, setOpenFilterCard] = useState(false);
+  const [filters, setFilters] = useState({
+    todo: false,
+    solved: false,
+    easy: false,
+    medium: false,
+    hard: false,
+  });
+
+  const toggleFilterCard = () => {
+    setOpenFilterCard(!openFilterCard); //if open then close and vice-versa
+  };
+
+  const handleFilterChange = (filterName) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterName]: !prevFilters[filterName], //if true sets to false and vice-versa,
+    }));
+  };
+
   const problems = [
     {
       nameOfProblem: "Longest Common Prefix",
@@ -74,11 +94,15 @@ export const QuestionsCard = () => {
     },
   ];
 
-  const [openFilterCard, setOpenFilterCard] = useState(false);
-
-  const toggleFilterCard = () => {
-    setOpenFilterCard(!openFilterCard); //if open then close and vice-versa
-  };
+  const filteredProblems = problems.filter((problem) => {
+    //logic to remove problems
+    if (filters.todo && problem.solved) return false;
+    if (filters.solved && !problem.solved) return false;
+    if (filters.easy && problem.type !== "Easy") return false;
+    if (filters.medium && problem.type !== "Medium") return false;
+    if (filters.hard && problem.type !== "Hard") return false;
+    return true;
+  });
 
   return (
     <div className="flex flex-col text-white flex-grow relative">
@@ -91,18 +115,35 @@ export const QuestionsCard = () => {
       </div>
       {openFilterCard && (
         <div className="absolute top-8 left-0 w-64 z-10">
-          <FilterCard />
+          <FilterCard filters={filters} onFilterChange={handleFilterChange} />
         </div>
       )}
-      <div className="flex flex-col">
-        <div className="flex justify-between flex-grow">
-          <div className="flex">
-            <CheckIcon />
-            <p>88. </p>
-            <p>Merge Sorted Array</p>
+      <div className="flex flex-col mt-4">
+        {filteredProblems.map((problem) => (
+          <div
+            key={problem.problemNumber}
+            className="flex justify-between flex-grow mb-2"
+          >
+            <div className="flex">
+              {problem.solved ? <CheckIcon /> : <CrossIcon />}
+              <p>{problem.problemNumber}. </p>
+              <p>{problem.nameOfProblem}</p>
+            </div>
+            <p
+              className={`${
+                problem.type === "Easy"
+                  ? "text-teal-500"
+                  : problem.type === "Medium"
+                  ? "text-yellow-500"
+                  : problem.type === "Hard"
+                  ? "text-red-500"
+                  : ""
+              }`}
+            >
+              {problem.type}
+            </p>
           </div>
-          <p className="text-teal-500">Easy</p>
-        </div>
+        ))}
       </div>
     </div>
   );

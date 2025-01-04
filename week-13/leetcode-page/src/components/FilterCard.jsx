@@ -1,4 +1,4 @@
-export const FilterCard = () => {
+export const FilterCard = ({ filters, onFilterChange }) => {
   return (
     <div className="flex flex-col text-white font-font-awesome bg-neutral-800 p-4 rounded-lg">
       <p className="text-lg font-semibold mb-2">Status</p>
@@ -12,6 +12,8 @@ export const FilterCard = () => {
               type="checkbox"
               className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border bg-neutral-800 checked:bg-white checked:border-black"
               id="check-todo"
+              checked={filters.todo}
+              onChange={() => onFilterChange("todo")}
             />
             <span className="absolute text-black opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <svg
@@ -46,6 +48,8 @@ export const FilterCard = () => {
               type="checkbox"
               className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border bg-neutral-800 checked:bg-white checked:border-black"
               id="check-solved"
+              checked={filters.solved}
+              onChange={() => onFilterChange("solved")}
             />
             <span className="absolute text-black opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <svg
@@ -84,6 +88,8 @@ export const FilterCard = () => {
               type="checkbox"
               className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border bg-neutral-800 checked:bg-white checked:border-black"
               id="check-easy"
+              checked={filters.easy}
+              onChange={() => onFilterChange("easy")}
             />
             <span className="absolute text-black opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <svg
@@ -118,6 +124,8 @@ export const FilterCard = () => {
               type="checkbox"
               className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border bg-neutral-800 checked:bg-white checked:border-black"
               id="check-medium"
+              checked={filters.medium}
+              onChange={() => onFilterChange("medium")}
             />
             <span className="absolute text-black opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <svg
@@ -152,6 +160,8 @@ export const FilterCard = () => {
               type="checkbox"
               className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border bg-neutral-800 checked:bg-white checked:border-black"
               id="check-hard"
+              checked={filters.hard}
+              onChange={() => onFilterChange("hard")}
             />
             <span className="absolute text-black opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <svg
